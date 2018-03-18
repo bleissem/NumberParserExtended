@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NumberParserExtended.Common.Configurations
 {
-    public abstract class NumberConfigurationBase
+    public abstract class NumberConfigurationBase: INumberConfiguration
     {
         public NumberConfigurationBase()
         {

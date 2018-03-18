@@ -1,4 +1,5 @@
 ﻿using NumberParserExtended.Common;
+using NumberParserExtended.Common.Configurations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,9 +27,30 @@ namespace NumberParserExtended
                 }
 
                 BuildContentField buildContentField = new BuildContentField();
-                buildContentField.Build(contentFile);
+                ContentField readField = buildContentField.Build(contentFile);
 
-                Console.WriteLine("Hello World!");
+                Recognize recognize = new Recognize();
+                if (recognize.DoRecognize<NumberOneConfiguration>(readField))
+                {
+                    Console.WriteLine("Recognized one");
+                }
+                if (recognize.DoRecognize<NumberTwoConfiguration>(readField))
+                {
+                    Console.WriteLine("Recognized two");
+                }
+                if (recognize.DoRecognize<NumberThreeConfiguration>(readField))
+                {
+                    Console.WriteLine("Recognized three");
+                }
+                if (recognize.DoRecognize<NumberFourConfiguration>(readField))
+                {
+                    Console.WriteLine("Recognized four");
+                }
+                if (recognize.DoRecognize<NumberFiveConfiguration>(readField))
+                {
+                    Console.WriteLine("Recognized five");
+                }
+                
 
             }
             catch(Exception ex)
