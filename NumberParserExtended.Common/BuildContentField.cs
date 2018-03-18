@@ -9,9 +9,7 @@ namespace NumberParserExtended.Common
     {
 
         public ContentField Build(string content)
-        {
-            ContentField result = new ContentField();
-        
+        {        
             // y -> x -> ContentFxield
             SortedDictionary<int, SortedDictionary<int, ContentField>> mappedField = new SortedDictionary<int, SortedDictionary<int, ContentField>>();
 
@@ -20,7 +18,7 @@ namespace NumberParserExtended.Common
 
             for (int y = 0; y < contents.Length; ++y)
             {
-                char[] oneCharLine = contents[y].Replace("\t", "   ").ToCharArray();
+                char[] oneCharLine = contents[y].Replace("\t", "   ").ToCharArray(); // hack
 
                 for (int x = 0; x < oneCharLine.Length; ++x)
                 {
@@ -44,6 +42,14 @@ namespace NumberParserExtended.Common
                 }
             }
 
+
+
+            return MapDict(mappedField);
+        }
+
+        private ContentField MapDict(SortedDictionary<int, SortedDictionary<int, ContentField>> mappedField)
+        {
+            ContentField result = null;
 
             /// TopLeft     Top         TopRight 
             /// Left        Content     Right
@@ -70,7 +76,17 @@ namespace NumberParserExtended.Common
                     xLeft = (x == 0 ? xCount - 1 : x - 1);
                     xRight = (x + 1) % xCount;
 
-                    currentField = mappedField[y][x];
+                    if (!mappedField[y].TryGetValue(x, out currentField))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if (null == result)
+                        {
+                            result = currentField;
+                        }
+                    }
 
                     // topleft 
                     if (mappedField[yUp].TryGetValue(xLeft, out tmpField))
@@ -121,6 +137,7 @@ namespace NumberParserExtended.Common
                     }
                 }
             }
+
 
             return result;
         }
