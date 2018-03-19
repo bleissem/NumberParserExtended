@@ -28,11 +28,11 @@ namespace NumberParserExtended.XUnitTestProject
             Assert.True(two.Field.Right.Content == '-');
             Assert.True(two.Field.Right.Right.Content == '-');
             Assert.True(two.Field.Right.Right.Bottom.Content == '|');
-            Assert.True(two.Field.Right.Right.Bottom.BottomLeft.Content == '_');
-            Assert.True(two.Field.Right.Right.Bottom.BottomLeft.BottomLeft.Content == '|');
-            Assert.True(two.Field.Right.Right.Bottom.BottomLeft.BottomLeft.Bottom.Content == '-');
-            Assert.True(two.Field.Right.Right.Bottom.BottomLeft.BottomLeft.Bottom.Right.Content == '-');
-            Assert.True(two.Field.Right.Right.Bottom.BottomLeft.BottomLeft.Bottom.Right.Right.Content == '-');
+            Assert.True(two.Field.Right.Right.Bottom.Left.Content == '_');
+            Assert.True(two.Field.Right.Right.Bottom.Left.BottomLeft.Content == '|');
+            Assert.True(two.Field.Right.Right.Bottom.Left.BottomLeft.Bottom.Content == '-');
+            Assert.True(two.Field.Right.Right.Bottom.Left.BottomLeft.Bottom.Right.Content == '-');
+            Assert.True(two.Field.Right.Right.Bottom.Left.BottomLeft.Bottom.Right.Right.Content == '-');
         }
 
         [Fact]

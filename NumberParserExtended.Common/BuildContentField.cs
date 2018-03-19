@@ -23,7 +23,7 @@ namespace NumberParserExtended.Common
                 for (int x = 0; x < oneCharLine.Length; ++x)
                 {
                     currentCh = oneCharLine[x];
-                    if (!currentCh.Equals(ContentFieldConstants.EmptyContent))
+                    //if (!currentCh.Equals(ContentFieldConstants.EmptyContent))
                     {                      
                         if (!mappedField.ContainsKey(y))
                         {
@@ -41,8 +41,6 @@ namespace NumberParserExtended.Common
                     }
                 }
             }
-
-
 
             return MapDict(mappedField);
         }

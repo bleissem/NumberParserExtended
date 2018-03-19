@@ -10,16 +10,17 @@ namespace NumberParserExtended.Common
     /// Left        Content     Right
     /// BottomLeft  Bottom      BottomRight
     /// </summary>
-    public class ContentField
+    public class ContentField: IEquatable<ContentField>
     {
-        public ContentField()
+        private ContentField()
         {
-            this.Content = ContentFieldConstants.EmptyContent;
+            
         }
 
         public ContentField(char content)
         {
             this.Content = content;
+            this._Guid = Guid.NewGuid();
         }
 
         public char Content { get; set; }
@@ -40,5 +41,13 @@ namespace NumberParserExtended.Common
 
         public ContentField BottomRight { get; set; }
 
+        private Guid _Guid;
+
+        public bool Equals(ContentField other)
+        {
+            if (null == other) return false;
+
+            return this._Guid == other._Guid;
+        }
     }
 }

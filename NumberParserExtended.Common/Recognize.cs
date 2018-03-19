@@ -14,14 +14,49 @@ namespace NumberParserExtended.Common
             TNumberConfig tc = new TNumberConfig();
             ContentField configuration = tc.Field;
 
-            if (field.Content == configuration.Content)
+            return DoRecognizeInternalY(field, configuration);
+        }
+
+        /// <summary>
+        /// loop through y 
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        private bool DoRecognizeInternalY(ContentField field, ContentField configuration)
+        {
+            bool b = DoRecognize(field, configuration);
+            ContentField current = field;
+            do
             {
-                return DoRecognize(field, configuration);
+                b = b || DoRecognizeInternalX(current, configuration);
+                current = current.Bottom ?? null;
             }
-            else
+            while ((current != null) && (!field.Equals(current)));
+            
+            return b;
+        }
+
+        /// <summary>
+        /// loop through y
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="bottom"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        private bool DoRecognizeInternalX(ContentField field, ContentField configuration)
+        {
+            bool b = DoRecognize(field, configuration);
+
+            ContentField current = field;
+            do
             {
-                return false;
+                b = b || DoRecognize(current, configuration);
+                current = current.Right ?? null;
             }
+            while ((current != null) &&  (!field.Equals(current)));
+
+            return b;
         }
 
         private bool DoRecognize(ContentField field, ContentField configuration)

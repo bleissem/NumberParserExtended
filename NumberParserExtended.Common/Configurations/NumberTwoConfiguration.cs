@@ -16,7 +16,7 @@ namespace NumberParserExtended.Common.Configurations
                     {
                         Bottom = new ContentField(ContentFieldConstants.Vertical)
                         {
-                            BottomLeft = new ContentField(ContentFieldConstants.Bottom)
+                            Left = new ContentField(ContentFieldConstants.Bottom)
                             {
                                 BottomLeft = new ContentField(ContentFieldConstants.Vertical)
                                 {
