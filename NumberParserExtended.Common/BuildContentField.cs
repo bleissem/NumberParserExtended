@@ -16,15 +16,29 @@ namespace NumberParserExtended.Common
             string[] contents = content.Split(Environment.NewLine, StringSplitOptions.None);
             char currentCh = ' ';
 
+            //determine MaxX to may fill up with blanks if needed
+            int maxX = 0;
+            {
+                for (int y = 0; y < contents.Length; ++y)
+                {
+                    char[] oneCharLine = contents[y].Replace("\t", "   ").ToCharArray(); 
+                    if (maxX < oneCharLine.Length)
+                    {
+                        maxX = oneCharLine.Length;
+                    }
+                }
+            }
+
+            int oneCharLineLength = 0;
             for (int y = 0; y < contents.Length; ++y)
             {
-                char[] oneCharLine = contents[y].Replace("\t", "   ").ToCharArray(); // hack
-
-                for (int x = 0; x < oneCharLine.Length; ++x)
+                char[] oneCharLine = contents[y].Replace("\t", "   ").ToCharArray(); 
+                oneCharLineLength = oneCharLine.Length;
+                for (int x = 0; x < oneCharLineLength; ++x)
                 {
                     currentCh = oneCharLine[x];
                     //if (!currentCh.Equals(ContentFieldConstants.EmptyContent))
-                    {                      
+                    {
                         if (!mappedField.ContainsKey(y))
                         {
                             mappedField.Add(y, new SortedDictionary<int, ContentField>());
@@ -38,6 +52,24 @@ namespace NumberParserExtended.Common
                         {
                             Trace.Fail("fail");
                         }
+                    }
+                }
+
+                // fill up this with blanks if needed 
+                for (int x = oneCharLineLength; x < maxX; ++x)
+                {
+                    if (!mappedField.ContainsKey(y))
+                    {
+                        mappedField.Add(y, new SortedDictionary<int, ContentField>());
+                    }
+
+                    if (!mappedField[y].ContainsKey(x))
+                    {
+                        mappedField[y].Add(x, new ContentField(' '));
+                    }
+                    else
+                    {
+                        Trace.Fail("fail");
                     }
                 }
             }
